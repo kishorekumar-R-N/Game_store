@@ -53,9 +53,9 @@ function Main_container({ searchTerm }) {
   const filteredGames =games;
 
   return (
-    <>
+    <div id="main_container">
       <Game_cards games={filteredGames} />
-    </>
+    </div>
   );
 }
 export default Main_container;

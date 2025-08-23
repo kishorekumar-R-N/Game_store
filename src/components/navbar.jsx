@@ -65,7 +65,7 @@ const Navbar = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="icon">
                   <path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88A88.1 88.1 0 0 1 128 216ZM128 80a28 28 0 1 1-28 28A28 28 0 0 1 128 80Zm0 40a12 12 0 1 0-12-12A12 12 0 0 0 128 120Zm48 64a8 8 0 0 1-8 8H88a8 8 0 0 1-8-8 40.09 40.09 0 0 1 40-40A40.09 40.09 0 0 1 168 168Zm-8 0a24.08 24.08 0 0 0-24-24a24.08 24.08 0 0 0-24 24Z" />
                 </svg>
-                <span>One_D_Piece</span>
+                <span>{/* One_D_Piece */}</span>
               </div>
               <a href="#" className="download-btn">Sign</a>
             </div>

@@ -5,7 +5,9 @@ function Search_div({ searchTerm, setSearchTerm }){
     return(
         <>
             <div className="search_div">
-                <h4>Discover</h4>
+                <button className="discover-btn" onClick={() => {
+                    document.getElementById('main_container').scrollIntoView({ behavior: 'smooth' });
+                }}><h4>Discover</h4></button>
                 <h4>Browser</h4>
                 <h4>News</h4>
             </div>
