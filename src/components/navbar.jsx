@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import '../homepage.css';
 import logo from '../assets/logo.png';
@@ -99,6 +98,7 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+
     </>
   );
 };

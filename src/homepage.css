@@ -2,13 +2,12 @@
         body{
             max-width: 100vw;
             max-height: 100vh;
-            overflow: hidden;
             box-sizing: border-box;
             font-family: 'Inter Tight', sans-serif;
             margin: 0;
         }
         .app-container {
-          background-color: #1f2937; /* Equivalent to bg-gray-800 */
+          background-color: #121212; /* Equivalent to bg-gray-800 */
           color: #e5e7eb; /* Equivalent to text-gray-200 */
           min-height: 100vh;
           font-family: 'Inter', sans-serif;
@@ -268,4 +267,250 @@
           .mobile-menu {
             display: none;
           }
+        }        
+        /* Main application container */
+        .app-containe {
+          display: flex;
+          flex-direction: row;
+          margin:3rem;
+          background-color: #0c0a09;
+          color: #ffffff;
+          padding: 1rem;
+        }
+        
+        /* Main carousel area container */
+        .carousel-main-area {
+          position: relative;
+          flex-grow: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem;
+        }
+        
+        /* Carousel container for the image and content */
+        .carousel-container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          max-height: 600px;
+          overflow: hidden;
+          border-radius: 1rem;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Dark overlay on the main image */
+        .image-overlay {
+          position: absolute;
+          inset: 0;
+          background-color: rgba(0, 0, 0, 0.39);
+          z-index: 10;
+          border-radius: 1rem;
+        }
+        
+        /* Styling for the main slide image */
+        .slide-image {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 1rem;
+        }
+        
+        /* Container for the text and buttons */
+        .content-container {
+          position: absolute;
+          bottom: 2.5rem;
+          left: 2.5rem;
+          padding: 1.5rem;
+          z-index: 20;
+          color: #ffffff;
+        }
+        
+        /* Main title of the slide */
+        .main-title {
+          font-size: 2.25rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Description of the slide */
+        .description {
+          font-size: 1rem;
+          max-width: 32rem;
+          margin-bottom: 1.5rem;
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Grouping for buttons/links */
+        .button-group {
+          display: flex;
+          gap: 1rem;
+        }
+        
+        /* Wishlist button styling */
+        .wishlist-button {
+          background-color: #ffffff;
+          color: #000000;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px;
+          font-weight: 600;
+          transition: background-color 0.15s ease-in-out;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          border: none;
+          cursor: pointer;
+        }
+        
+        .wishlist-button:hover {
+          background-color: #e5e7eb;
+        }
+        
+        /* Wishlist link and icon styling */
+        .wishlist-link {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: #ffffff;
+        }
+        
+        .wishlist-link a {
+          font-weight: 600;
+          text-decoration: none;
+          color: inherit;
+        }
+        
+        .wishlist-link a:hover {
+          text-decoration: underline;
+        }
+        
+        .link-icon {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+        
+        /* Navigation buttons (prev/next) */
+        .nav-button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: rgba(31, 41, 55, 0.5);
+          color: #ffffff;
+          padding: 0.75rem;
+          border-radius: 9999px;
+          transition: background-color 0.15s ease-in-out;
+          border: none;
+          cursor: pointer;
+          z-index: 30;
+        }
+        
+        .nav-button:hover {
+          background-color: rgba(31, 41, 55, 0.8);
+        }
+        
+        .nav-button:focus {
+          outline: none;
+        }
+        
+        .prev-button {
+          left: 1rem;
+        }
+        
+        .next-button {
+          right: 1rem;
+        }
+        
+        /* Sidebar for thumbnails */
+        .sidebar {
+          margin-top: 5rem;
+          flex-shrink: 0;
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          overflow-y: auto;
+        }
+        
+        /* Individual thumbnail item */
+        .thumbnail-item {
+          
+          display: flex;
+          align-items: center;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          transition: background-color 0.15s ease-in-out;
+        }
+        
+        .thumbnail-item:hover {
+          background-color: #1f2937;
+        }
+        
+        .thumbnail-item.active {
+          background-color: #374151;
+        }
+        
+        /* Thumbnail image */
+        .thumbnail-image {
+          width: 4rem;
+          height: 4rem;
+          border-radius: 0.5rem;
+          object-fit: cover;
+        }
+        
+        /* Thumbnail text container */
+        .thumbnail-text {
+          margin-left: 1rem;
+        }
+        
+        /* Thumbnail title */
+        .thumbnail-title {
+          font-size: 0.875rem;
+          font-weight: 600;
+        }
+        
+        /* "NEW" tag styling */
+        .new-tag {
+          font-size: 0.75rem;
+          color: #60a5fa;
+          font-weight: 500;
+          margin-top: 0.25rem;
+        }
+        
+        /* Responsive design for screens larger than 768px (md) */
+        @media (min-width: 768px) {
+          .app-container {
+            flex-direction: row;
+          }
+        
+          .main-title {
+            font-size: 3rem;
+            line-height: 1;
+          }
+          
+          .description {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+          }
+        
+          .sidebar {
+            width: 25%;
+          }
+        }
+          .search_div{
+          position: relative;
+          height: 100px;
+          width: 50%;
+          display: flex;
+          align-items: center;
+          gap:40px;
+          padding-left: 20px;
+          margin-top: 0px;
+          margin-left: 100px;
+          margin-bottom: -50px;
+          cursor: pointer;
+        }
+        .search_div h4{
+          color: #9e9ea0;
         }
