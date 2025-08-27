@@ -180,7 +180,7 @@
           font-size: 0.875rem;
         }
 
-        .download-btn {
+        .sign-btn {
           margin-left: 1rem;
           background-color: #0078F2;
           color: #fff;
@@ -192,7 +192,7 @@
           white-space: nowrap;
         }
 
-        .download-btn:hover {
+        .sign-btn:hover {
           background-color: #0063d1;
         }
 
@@ -643,3 +643,4 @@
 .copyright {
   margin: 0;
 }
+

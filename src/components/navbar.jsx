@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../homepage.css';
 import logo from '../assets/logo.png';
 
@@ -67,7 +68,9 @@ const Navbar = () => {
                 </svg>
                 <span>{/* One_D_Piece */}</span>
               </div>
-              <a href="#" className="download-btn">Sign</a>
+              <Link to="/signup" className="sign-btn" style={{ color: 'inherit', textDecoration: 'none' }}>
+                Sign
+              </Link>
             </div>
 
             <div className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
