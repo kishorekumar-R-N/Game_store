@@ -319,7 +319,7 @@ const SignUp = () => {
               onClick={handleSubmit}
               className="submit-button"
             >
-              Sign Up
+              Sign Up 
             </button>
           </div>
         <p style={{marginBottom: '1rem' }}>

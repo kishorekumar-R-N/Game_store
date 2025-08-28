@@ -6,7 +6,7 @@ import Main_container from './components/Main_container.jsx';
 import Footer from './components/footer.jsx';
 import Signup from './pages/signup.jsx';
 import Login from './pages/Login.jsx';
-
+import Adminpage from './pages/adminpage.jsx';
 const App = () => {
   return (
     <Router>
@@ -25,6 +25,7 @@ const App = () => {
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<Adminpage />} />
         </Routes>
       </div>
     </Router>
