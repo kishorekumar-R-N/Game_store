@@ -86,7 +86,7 @@ const initialGames = [
 ];
 
 // Main App component
-const App = () => {
+const Admin = () => {
     // State variables for game data, form inputs, and UI controls
     const [games, setGames] = useState(initialGames);
     const [filteredGames, setFilteredGames] = useState([]);
@@ -1180,7 +1180,6 @@ const App = () => {
                                 }}
                                 className="close-btn"
                             >
-                                ×
                             </button>
                         </div>
                         
@@ -1383,4 +1382,4 @@ const App = () => {
     );
 };
 
-export default App; 
+export default Admin; 

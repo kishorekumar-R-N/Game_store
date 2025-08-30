@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Main App component that renders the login form
 const App = () => {
@@ -14,12 +15,34 @@ const App = () => {
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+
+  // Handle form submission and connect to backend
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Log the complete form data to the console
-    console.log('Login Data Submitted:', formData);
-    // In a real application, you would send this data to a server for authentication
+    setMessage('');
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage('Login successful!');
+        localStorage.setItem('token', data.token);
+        if (data.user && data.user.username) {
+          localStorage.setItem('username', data.user.username);
+        }
+        window.dispatchEvent(new Event('user-login'));
+        setTimeout(() => navigate('/'), 1000);
+      } else {
+        setMessage(data.message || 'Login failed');
+      }
+    } catch (err) {
+      setMessage('Network error');
+    }
   };
 
   return (
@@ -30,7 +53,7 @@ const App = () => {
           Log in to access your game library and profile.
         </p>
 
-        <form onSubmit={handleSubmit} className="form-container">
+  <form onSubmit={handleSubmit} className="form-container">
           {/* Login Form Section */}
           <section className="section-container">
             <h2 className="section-title">Account Login</h2>
@@ -68,7 +91,9 @@ const App = () => {
             >
               Log In
             </button>
+            {message && <div style={{marginTop: '1rem', color: message.includes('success') ? 'lightgreen' : 'salmon'}}>{message}</div>}
           </div>
+          
         </form>
       </div>
 

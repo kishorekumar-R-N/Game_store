@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 // Main SignUp component that renders the sign-up form
 const SignUp = () => {
   // State to manage all form data, including nested objects
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     system_specs: {
@@ -145,11 +147,32 @@ const SignUp = () => {
     }
   };
 
-  // Handle form submission
-  const handleSubmit = () => {
-    // Log the complete structured data to the console
-    console.log('Form Data Submitted:', formData);
-    // In a real application, you would send this data to a server
+
+  // Handle form submission and connect to backend
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const handleSubmit = async () => {
+    setMessage('');
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage('Registration successful!');
+        if (data.user && data.user.username) {
+          localStorage.setItem('username', data.user.username);
+        }
+        window.dispatchEvent(new Event('user-login'));
+        setTimeout(() => navigate('/'), 1000);
+      } else {
+        setMessage(data.message || 'Registration failed');
+      }
+    } catch (err) {
+      setMessage('Network error');
+    }
   };
 
   return (
@@ -164,6 +187,18 @@ const SignUp = () => {
           {/* General Account Information */}
           <div className="section-container">
             <h2 className="section-title">Account Info</h2>
+            <div>
+              <label className="input-label" htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+                className="glass-input"
+              />
+            </div>
             <div>
               <label className="input-label" htmlFor="email">Email</label>
               <input
@@ -180,7 +215,7 @@ const SignUp = () => {
               <label className="input-label" htmlFor="password">Password</label>
               <input
                 type="password"
-                id="password"
+                id="password" 
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -321,6 +356,7 @@ const SignUp = () => {
             >
               Sign Up 
             </button>
+            {message && <div style={{marginTop: '1rem', color: message.includes('success') ? 'lightgreen' : 'salmon'}}>{message}</div>}
           </div>
         <p style={{marginBottom: '1rem' }}>
           Already have an account? <Link style={{marginBottom: '1rem',color: '#E0E0E0',textDecoration: 'none'}} to="/login">Login here</Link>
