@@ -359,7 +359,7 @@ const SignUp = () => {
             {message && <div style={{marginTop: '1rem', color: message.includes('success') ? 'lightgreen' : 'salmon'}}>{message}</div>}
           </div>
         <p style={{marginBottom: '1rem' }}>
-          Already have an account? <Link style={{marginBottom: '1rem',color: '#E0E0E0',textDecoration: 'none'}} to="/login">Login here</Link>
+          Already have an account? <Link style={{marginBottom: '1rem',color: '#00c8ffff',textDecoration: 'none'}} to="/login">Login here</Link>
         </p>
         </div>
       </div>
