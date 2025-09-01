@@ -35,8 +35,17 @@ const App = () => {
         if (data.user && data.user.username) {
           localStorage.setItem('username', data.user.username);
         }
+        if (data.user && data.user.role) {
+          localStorage.setItem('role', data.user.role);
+        }
         window.dispatchEvent(new Event('user-login'));
-        setTimeout(() => navigate('/'), 1000);
+        setTimeout(() => {
+          if (data.user && data.user.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/');
+          }
+        }, 1000);
       } else {
         setMessage(data.message || 'Login failed');
       }

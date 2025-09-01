@@ -2,93 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Search, Filter, Edit2, Trash2, Plus, BarChart3, Users, DollarSign, Calendar, Eye, EyeOff, Download, Upload } from 'lucide-react';
 
 // Sample initial data
-const initialGames = [
-    {
-        id: '1',
-        title: 'Cyberpunk 2077',
-        genre: 'RPG',
-        price: '59.99',
-        releaseDate: '2020-12-10',
-        imageUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop',
-        description: 'An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification.',
-        developer: 'CD Projekt RED',
-        publisher: 'CD Projekt',
-        rating: 'M',
-        platform: 'Multi-platform',
-        featured: true,
-        inStock: true,
-        stockCount: 150
-    },
-    {
-        id: '2',
-        title: 'The Witcher 3',
-        genre: 'RPG',
-        price: '39.99',
-        releaseDate: '2015-05-19',
-        imageUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop',
-        description: 'A story-driven, next-generation open world role-playing game set in a visually stunning fantasy universe.',
-        developer: 'CD Projekt RED',
-        publisher: 'CD Projekt',
-        rating: 'M',
-        platform: 'Multi-platform',
-        featured: true,
-        inStock: true,
-        stockCount: 200
-    },
-    {
-        id: '3',
-        title: 'Minecraft',
-        genre: 'Sandbox',
-        price: '26.95',
-        releaseDate: '2011-11-18',
-        imageUrl: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=300&fit=crop',
-        description: 'A sandbox video game where players can build with a variety of different blocks in a 3D procedurally generated world.',
-        developer: 'Mojang Studios',
-        publisher: 'Microsoft',
-        rating: 'E10+',
-        platform: 'Multi-platform',
-        featured: false,
-        inStock: true,
-        stockCount: 500
-    },
-    {
-        id: '4',
-        title: 'Among Us',
-        genre: 'Party',
-        price: '4.99',
-        releaseDate: '2018-06-15',
-        imageUrl: 'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=300&fit=crop',
-        description: 'A multiplayer game of teamwork and betrayal. Play with 4-15 players online or via local WiFi.',
-        developer: 'InnerSloth',
-        publisher: 'InnerSloth',
-        rating: 'E10+',
-        platform: 'Multi-platform',
-        featured: false,
-        inStock: true,
-        stockCount: 300
-    },
-    {
-        id: '5',
-        title: 'Grand Theft Auto V',
-        genre: 'Action',
-        price: '29.99',
-        releaseDate: '2013-09-17',
-        imageUrl: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=300&fit=crop',
-        description: 'An action-adventure game played from either a third-person or first-person perspective.',
-        developer: 'Rockstar North',
-        publisher: 'Rockstar Games',
-        rating: 'M',
-        platform: 'Multi-platform',
-        featured: false,
-        inStock: true,
-        stockCount: 100
-    }
-];
+import api from '../api';
 
 // Main App component
 const Admin = () => {
     // State variables for game data, form inputs, and UI controls
-    const [games, setGames] = useState(initialGames);
+    const [games, setGames] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]);
     const [newGame, setNewGame] = useState({ 
         title: '', 
@@ -124,6 +43,21 @@ const Admin = () => {
         genres: {},
         featuredCount: 0
     });
+
+    // Fetch all games from the backend on mount
+    useEffect(() => {
+        const fetchGames = async () => {
+            setLoading(true);
+            try {
+                const res = await api.get('/games');
+                setGames(res.data.games || []);
+            } catch (err) {
+                setGames([]);
+            }
+            setLoading(false);
+        };
+        fetchGames();
+    }, []);
 
     // Calculate statistics whenever games change
     useEffect(() => {
@@ -206,52 +140,74 @@ const Admin = () => {
         return Date.now().toString() + Math.random().toString(36).substr(2, 9);
     };
 
-    // Handle adding/updating a game
-    const handleAddGame = (e) => {
+    // Handle adding/updating a game (CRUD with backend)
+    const handleAddGame = async (e) => {
         e.preventDefault();
-        
         const gameData = editingGame || newGame;
-        
         if (!gameData.title.trim() || !gameData.genre.trim() || !gameData.price) {
             alert('Please fill in the required fields: Title, Genre, and Price.');
             return;
         }
-
-        if (editingGame) {
-            // Update existing game
-            setGames(prevGames => 
-                prevGames.map(game => 
-                    game.id === editingGame.id 
-                        ? { ...editingGame, updatedAt: new Date().toISOString() }
-                        : game
-                )
-            );
-            setEditingGame(null);
-        } else {
-            // Add new game
-            const newGameWithId = {
-                ...newGame,
-                id: generateId(),
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            setGames(prevGames => [...prevGames, newGameWithId]);
+        setLoading(true);
+        try {
+            if (editingGame) {
+                // Update game
+                const res = await api.put(`/games/${editingGame._id}`, {
+                    title: gameData.title,
+                    description: gameData.description,
+                    image: gameData.imageUrl,
+                    price: Number(gameData.price),
+                    genre: gameData.genre
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                setGames(prev => prev.map(g => g._id === editingGame._id ? res.data.game : g));
+                setEditingGame(null);
+            } else {
+                // Add new game
+                const res = await api.post('/games', {
+                    title: newGame.title,
+                    description: newGame.description,
+                    image: newGame.imageUrl,
+                    price: Number(newGame.price),
+                    genre: newGame.genre
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                setGames(prev => [res.data.game, ...prev]);
+            }
+            setNewGame({ 
+                title: '', genre: '', price: '', releaseDate: '', imageUrl: '',
+                description: '', developer: '', publisher: '', rating: '', platform: '',
+                featured: false, inStock: true, stockCount: 100
+            });
+            setShowForm(false);
+        } catch (err) {
+            alert('Failed to save game. Please check your input and try again.');
         }
-        
-        setNewGame({ 
-            title: '', genre: '', price: '', releaseDate: '', imageUrl: '',
-            description: '', developer: '', publisher: '', rating: '', platform: '',
-            featured: false, inStock: true, stockCount: 100
-        });
-        setShowForm(false);
+        setLoading(false);
     };
 
-    // Handle deleting a game
-    const handleDeleteGame = (gameId) => {
+    // Handle deleting a game (CRUD with backend)
+    const handleDeleteGame = async (gameId) => {
         if (!confirm('Are you sure you want to delete this game?')) return;
-        
-        setGames(prevGames => prevGames.filter(game => game.id !== gameId));
-        setSelectedGames(prev => prev.filter(id => id !== gameId));
+        setLoading(true);
+        try {
+            await api.delete(`/games/${gameId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setGames(prev => prev.filter(game => game._id !== gameId));
+            setSelectedGames(prev => prev.filter(id => id !== gameId));
+        } catch (err) {
+            alert('Failed to delete game. Please check your input and try again.');
+        }
+        setLoading(false);
     };
 
     // Handle bulk actions
@@ -1092,7 +1048,7 @@ const Admin = () => {
                                     )}
                                     
                                     <img 
-                                        src={game.imageUrl || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop"} 
+                                        src={game.image || game.imageUrl || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop"} 
                                         alt={game.title} 
                                         className="game-image" 
                                         onError={(e) => { 
@@ -1382,4 +1338,4 @@ const Admin = () => {
     );
 };
 
-export default Admin; 
+export default Admin;

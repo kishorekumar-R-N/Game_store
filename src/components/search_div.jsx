@@ -1,5 +1,6 @@
 import React from "react";
 import "../homepage.css";
+import {Link} from "react-router-dom";
 
 function Search_div({ searchTerm, setSearchTerm }){
     return(

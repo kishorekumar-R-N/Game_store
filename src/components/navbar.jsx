@@ -9,31 +9,44 @@ const Navbar = () => {
 
 
 
+
   const [username, setUsername] = useState(() => {
     const token = localStorage.getItem('token');
     const uname = localStorage.getItem('username');
     return token && uname ? uname : '';
   });
 
+  const [role, setRole] = useState(() => {
+    const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
+    return token && userRole ? userRole : '';
+  });
+
+
   useEffect(() => {
-    const updateUsername = () => {
+    const updateUserInfo = () => {
       const token = localStorage.getItem('token');
       const uname = localStorage.getItem('username');
+      const userRole = localStorage.getItem('role');
       setUsername(token && uname ? uname : '');
+      setRole(token && userRole ? userRole : '');
     };
-    window.addEventListener('storage', updateUsername);
-    window.addEventListener('user-login', updateUsername);
-    updateUsername(); // ensure update on mount
+    window.addEventListener('storage', updateUserInfo);
+    window.addEventListener('user-login', updateUserInfo);
+    updateUserInfo(); // ensure update on mount
     return () => {
-      window.removeEventListener('storage', updateUsername);
-      window.removeEventListener('user-login', updateUsername);
+      window.removeEventListener('storage', updateUserInfo);
+      window.removeEventListener('user-login', updateUserInfo);
     };
   }, []);
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    localStorage.removeItem('role');
     setUsername('');
+    setRole('');
     window.location.href = '/';
   };
 
@@ -90,13 +103,21 @@ const Navbar = () => {
                 <path d="M12 15a6 6 0 100-12 6 6 0 000 12z" />
               </svg>
             </button>
+
             <div className="nav-right-desktop">
-              <div className="user-profile">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="icon">
-                  <path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88A88.1 88.1 0 0 1 128 216ZM128 80a28 28 0 1 1-28 28A28 28 0 0 1 128 80Zm0 40a12 12 0 1 0-12-12A12 12 0 0 0 128 120Zm48 64a8 8 0 0 1-8 8H88a8 8 0 0 1-8-8 40.09 40.09 0 0 1 40-40A40.09 40.09 0 0 1 168 168Zm-8 0a24.08 24.08 0 0 0-24-24a24.08 24.08 0 0 0-24 24Z" />
-                </svg>
-                <span>{username ? username : ''}</span>
-              </div>
+              {role !== 'admin' && (
+                <div className="user-profile">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="icon">
+                    <path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88A88.1 88.1 0 0 1 128 216ZM128 80a28 28 0 1 1-28 28A28 28 0 0 1 128 80Zm0 40a12 12 0 1 0-12-12A12 12 0 0 0 128 120Zm48 64a8 8 0 0 1-8 8H88a8 8 0 0 1-8-8 40.09 40.09 0 0 1 40-40A40.09 40.09 0 0 1 168 168Zm-8 0a24.08 24.08 0 0 0-24-24a24.08 24.08 0 0 0-24 24Z" />
+                  </svg>
+                  <span>{username ? username : ''}</span>
+                </div>
+              )}
+              {role === 'admin' && (
+                <Link to="/admin" className="admin-link" style={{ marginRight: '1rem', color: '#f59e42', fontWeight: 'bold', textDecoration: 'none' }}>
+                  Admin
+                </Link>
+              )}
               {username ? (
                 <button className="sign-btn" style={{ color: 'inherit', textDecoration: 'none', background: 'none', border: 'none', cursor: 'pointer' }} onClick={handleLogout}>
                   Logout
