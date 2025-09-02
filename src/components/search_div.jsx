@@ -9,7 +9,7 @@ function Search_div({ searchTerm, setSearchTerm }){
                 <button className="discover-btn" onClick={() => {
                     document.getElementById('main_container').scrollIntoView({ behavior: 'smooth' });
                 }}><h4>Discover</h4></button>
-                <h4>Browser</h4>
+                <Link to="/game/:id"><h4>Browser</h4></Link>
                 <h4>News</h4>
             </div>
         </>
