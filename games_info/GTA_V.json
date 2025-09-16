@@ -1,7 +1,7 @@
 {
   "title": "Grand Theft Auto V",
-  "logo":"",
-  "backgroundImage": "",
+  "logo":"https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/GTA_V/imgi_27_Diesel%252Fproductv2%252Fgrand-theft-auto-v%252Fhome%252FGTAV_EGS_Artwork_400x400_GameLogo-1000x1000-f6c47a98454049a5e63959f7b6f898c4fc228.png",
+  "backgroundImage": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/GTA_V/imgi_28_EGS_GrandTheftAutoVEnhanced_RockstarNorth_S1_2560x1440-906d8ae76a91aafc60b1a54c23fab496.jpeg",
   "about": "Grand Theft Auto V (GTA V) is an open-world action-adventure game developed by Rockstar North. Set in the sprawling city of Los Santos and the surrounding countryside, players experience the intertwined stories of three unique protagonists as they navigate a world full of crime, ambition, and opportunity.",
   "screenshots": [
     "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/GTA_V/imgi_24_egs-grandtheftautovenhanced-rockstarnorth-g1a-08-1920x1080-2f242a16f452.jpg",
