@@ -1,10 +1,90 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import api from '../api';
+import Footer from '../components/footer';
 
-// Main App component that renders the entire page.
-const App = () => {
+const GameDetailsPage = () => {
+  const { id } = useParams();
+  const [gameDetails, setGameDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchGameDetails = async () => {
+      try {
+        setLoading(true);
+        // Fetch all games, then find the one with the matching id
+        const res = await api.get('/games');
+        const game = res.data.games.find(g => g._id === id);
+        if (!game || !game.detailsJsonUrl) {
+          setError('Game or details link not found');
+          setLoading(false);
+          return;
+        }
+        // Fetch the JSON details from the stored URL
+        const detailsResponse = await fetch(game.detailsJsonUrl);
+        if (!detailsResponse.ok) {
+          throw new Error('Failed to fetch game details');
+        }
+        const details = await detailsResponse.json();
+        // Optionally, merge some fields from the game object
+        setGameDetails({ ...details, title: game.title });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGameDetails();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#1a1a1a',
+        color: '#f0f0f0'
+      }}>
+        <div>Loading game details...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#1a1a1a',
+        color: '#e02f5a'
+      }}>
+        <div>Error: {error}</div>
+      </div>
+    );
+  }
+
+  if (!gameDetails) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#1a1a1a',
+        color: '#f0f0f0'
+      }}>
+        <div>No game details found</div>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
-      {/* CSS for the entire app. It's placed here to keep everything self-contained. */}
       <style>
         {`
           :root {
@@ -65,7 +145,7 @@ const App = () => {
             padding: 40px;
             background-size: cover;
             background-position: center;
-            background-image: url('https://placehold.co/1400x600/333333/ffffff?text=HERO+BACKGROUND+IMAGE');
+            background-image: linear-gradient(135deg, #2c1810 0%, #8B4513 50%, #D2691E 100%);
             border-radius: 12px;
             margin-top: 20px;
             overflow: hidden;
@@ -78,7 +158,7 @@ const App = () => {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 0, 0, 0));
           }
 
           .hero-content {
@@ -91,9 +171,17 @@ const App = () => {
           
           .hero-logo {
             width: 250px;
-            height: auto;
+            height: 350px;
+            background: linear-gradient(145deg, #333, #555);
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
           }
 
           .hero-text h1 {
@@ -105,6 +193,7 @@ const App = () => {
             font-size: 18px;
             color: var(--secondary-text-color);
             margin: 0 0 20px;
+            max-width: 600px;
           }
 
           .cta-button {
@@ -161,9 +250,14 @@ const App = () => {
             border-radius: 8px;
             overflow: hidden;
             width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+            height: 200px;
+            background: linear-gradient(145deg, #333, #555);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
             transition: transform 0.2s ease;
             cursor: pointer;
           }
@@ -176,7 +270,7 @@ const App = () => {
             list-style: none;
             padding: 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
           }
 
@@ -189,6 +283,12 @@ const App = () => {
           .feature-item h3 {
             font-size: 20px;
             margin: 0 0 10px;
+            color: var(--accent-color);
+          }
+
+          .feature-item p {
+            margin: 0;
+            color: var(--secondary-text-color);
           }
 
           .main-content-right {
@@ -228,6 +328,8 @@ const App = () => {
           
           .info-value {
             font-weight: 500;
+            text-align: right;
+            max-width: 60%;
           }
           
           .footer {
@@ -237,6 +339,23 @@ const App = () => {
             font-size: 14px;
             border-top: 1px solid #333;
             margin-top: 40px;
+          }
+
+          .back-button {
+            background: none;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+          }
+
+          .back-button:hover {
+            background-color: var(--accent-color);
+            color: white;
           }
 
           @media (max-width: 900px) {
@@ -251,24 +370,30 @@ const App = () => {
       </style>
 
       <Header />
-      <HeroSection />
+      
+      <button className="back-button" onClick={() => window.history.back()}>
+        ← Back to Store
+      </button>
+
+      <HeroSection gameDetails={gameDetails} />
+      
       <div className="container main-content">
         <div className="main-content-left">
-          <MediaGallery />
-          <GameDescription />
-          <FeaturesSection />
+          <MediaGallery screenshots={gameDetails.screenshots} />
+          <GameDescription about={gameDetails.about} />
+          <FeaturesSection features={gameDetails.keyFeatures} />
         </div>
         <div className="main-content-right">
-          <GameDetails />
-          <SystemRequirements />
+          <GameDetails details={gameDetails.details} />
+          <SystemRequirements specs={gameDetails.systemSpecs} />
         </div>
       </div>
+      
       <Footer />
     </div>
   );
 };
 
-// Component for the header navigation.
 const Header = () => (
   <header className="header container">
     <div className="header-logo">EPIC GAMES</div>
@@ -281,163 +406,158 @@ const Header = () => (
   </header>
 );
 
-// Component for the main hero section with the background image.
-const HeroSection = () => (
-  <section className="hero-section">
-    <div className="hero-overlay"></div>
-    <div className="hero-content">
-      <img
-        src="https://placehold.co/250x350/555555/ffffff?text=GAME+LOGO"
-        alt="Game Logo"
-        className="hero-logo"
-      />
-      <div className="hero-text">
-        <h1>Killing Floor 3</h1>
-        <p>
-          Welcome to the future of slaughter. The year is 2091, and global
-          megacorp Horzine has produced the ultimate army: the Zeds. Take on a
-          squad-based mission in this action-horror FPS.
-        </p>
-        <button className="cta-button">Pre-Order Now</button>
+const HeroSection = ({ gameDetails }) => {
+  // Debug log for backgroundImage
+  console.log('Background image for hero:', gameDetails.backgroundImage);
+  // Fallback image if backgroundImage is missing or fails
+  const fallbackBg = 'https://placehold.co/1400x600/333333/ffffff?text=No+Background+Image';
+  const bgImage = gameDetails.backgroundImage
+    ? `url('${gameDetails.backgroundImage}')`
+    : `url('${fallbackBg}')`;
+  return (
+    <section
+      className="hero-section"
+      style={{
+        backgroundImage: bgImage,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative',
+      }}
+    >
+      <div className="hero-overlay"></div>
+      <div className="hero-content">
+        {gameDetails.logo ? (
+          <img
+            className="hero-logo"
+            src={gameDetails.logo}
+            alt="Game Logo"
+            style={{ width: '250px', height: '350px', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', objectFit: 'contain', background: '#222' }}
+          />
+        ) : (
+          <div className="hero-logo">GAME LOGO</div>
+        )}
+        <div className="hero-text">
+          <h1>{gameDetails.title}</h1>
+          <p>{gameDetails.about}</p>
+          <button className="cta-button">Purchase Now</button>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-// Component for the image/video gallery.
-const MediaGallery = () => (
-  <section className="section">
-    <h2 className="section-title">Media</h2>
-    <div className="gallery-grid">
-      <img
-        src="https://placehold.co/600x350/444444/ffffff?text=Screenshot+1"
-        alt="Screenshot 1"
-        className="gallery-item"
-      />
-      <img
-        src="https://placehold.co/600x350/444444/ffffff?text=Screenshot+2"
-        alt="Screenshot 2"
-        className="gallery-item"
-      />
-      <img
-        src="https://placehold.co/600x350/444444/ffffff?text=Screenshot+3"
-        alt="Screenshot 3"
-        className="gallery-item"
-      />
-      <img
-        src="https://placehold.co/600x350/444444/ffffff?text=Screenshot+4"
-        alt="Screenshot 4"
-        className="gallery-item"
-      />
-    </div>
-  </section>
-);
+  const MediaGallery = ({ screenshots }) => (
+    <section className="section">
+      <h2 className="section-title">Screenshots</h2>
+      <div className="gallery-grid">
+        {screenshots && screenshots.length > 0 ? (
+          screenshots.map((screenshot, index) => (
+            <img
+              key={index}
+              src={screenshot}
+              alt={`Screenshot ${index + 1}`}
+              className="gallery-item"
+              style={{ objectFit: 'cover', width: '100%', height: '200px' }}
+            />
+          ))
+        ) : (
+          <>
+            <div className="gallery-item">Screenshot 1</div>
+            <div className="gallery-item">Screenshot 2</div>
+            <div className="gallery-item">Screenshot 3</div>
+            <div className="gallery-item">Screenshot 4</div>
+          </>
+        )}
+      </div>
+    </section>
+  );
 
-// Component for the main game description.
-const GameDescription = () => (
+const GameDescription = ({ about }) => (
   <section className="section">
     <h2 className="section-title">About the Game</h2>
-    <p>
-      Killing Floor 3 is the next installment in the legendary co-op horror FPS
-      series. The year is 2091, 70 years after the events of Killing Floor 2.
-      Horzine is now a ruthless global megacorp and the ultimate creator of the
-      Zed army. You are a member of a rogue group of misfits and rebels called
-      Nightfall, fighting back against the megacorp and their deadly creations.
-      Experience the visceral thrill of taking down waves of Zeds, from
-      low-level creeps to the fearsome bosses that stand in your way.
-    </p>
-    <p>
-      This new chapter introduces new weapons, classes, and enemy types while
-      retaining the core formula that fans love. Team up with friends, customize
-      your character, and survive the onslaught in a grim, futuristic world.
-    </p>
+    <p>{about}</p>
   </section>
 );
 
-// Component for key features.
-const FeaturesSection = () => (
+const FeaturesSection = ({ features }) => (
   <section className="section">
     <h2 className="section-title">Key Features</h2>
     <ul className="features-list">
-      <li className="feature-item">
-        <h3>Co-op Survival</h3>
-        <p>Team up with up to 5 other players to fight for your lives.</p>
-      </li>
-      <li className="feature-item">
-        <h3>Visceral Combat</h3>
-        <p>Brutal, high-impact gunplay and melee combat against terrifying Zeds.</p>
-      </li>
-      <li className="feature-item">
-        <h3>New Enemies</h3>
-        <p>Face off against a deadly new roster of Zeds and colossal bosses.</p>
-      </li>
-      <li className="feature-item">
-        <h3>Deep Progression</h3>
-        <p>Unlock new skills, weapons, and cosmetics as you level up your class.</p>
-      </li>
+      {features && features.length > 0 ? (
+        features.map((feature, index) => (
+          <li key={index} className="feature-item">
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </li>
+        ))
+      ) : (
+        <>
+          <li className="feature-item">
+            <h3>Amazing Feature</h3>
+            <p>Description of this amazing feature.</p>
+          </li>
+          <li className="feature-item">
+            <h3>Great Gameplay</h3>
+            <p>Experience incredible gameplay mechanics.</p>
+          </li>
+        </>
+      )}
     </ul>
   </section>
 );
 
-// Component for game details (platforms, developer, etc.).
-const GameDetails = () => (
+const GameDetails = ({ details }) => (
   <aside className="info-box">
     <h2>Details</h2>
     <div className="info-item">
       <span className="info-label">Developer</span>
-      <span className="info-value">Tripwire Interactive</span>
+      <span className="info-value">{details?.developer || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Publisher</span>
-      <span className="info-value">Tripwire Presents</span>
+      <span className="info-value">{details?.publisher || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Release Date</span>
-      <span className="info-value">TBA</span>
+      <span className="info-value">{details?.releaseDate || 'TBA'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Tags</span>
-      <span className="info-value">Action, FPS, Horror</span>
+      <span className="info-value">{details?.tags || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Platforms</span>
-      <span className="info-value">PC, PS5, Xbox Series X|S</span>
+      <span className="info-value">{details?.platforms || 'N/A'}</span>
     </div>
   </aside>
 );
 
-// Component for system requirements.
-const SystemRequirements = () => (
+const SystemRequirements = ({ specs }) => (
   <aside className="info-box">
     <h2>System Requirements</h2>
     <div className="info-item">
       <span className="info-label">OS</span>
-      <span className="info-value">Windows 10</span>
+      <span className="info-value">{specs?.OS || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Processor</span>
-      <span className="info-value">Intel Core i5-9600K</span>
+      <span className="info-value">{specs?.Processor || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Memory</span>
-      <span className="info-value">16 GB RAM</span>
+      <span className="info-value">{specs?.Memory || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Graphics</span>
-      <span className="info-value">NVIDIA GeForce RTX 2060</span>
+      <span className="info-value">{specs?.Graphics || 'N/A'}</span>
     </div>
     <div className="info-item">
       <span className="info-label">Storage</span>
-      <span className="info-value">20 GB available space</span>
+      <span className="info-value">{specs?.Storage || 'N/A'}</span>
     </div>
   </aside>
 );
 
-// Component for the page footer.
-const Footer = () => (
-  <footer className="footer container">
-    <p>&copy; 2024 Your Website. All Rights Reserved.</p>
-  </footer>
-);
 
-export default App;
+
+export default GameDetailsPage;

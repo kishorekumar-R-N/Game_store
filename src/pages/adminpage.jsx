@@ -157,7 +157,8 @@ const Admin = () => {
                     description: gameData.description,
                     image: gameData.imageUrl,
                     price: Number(gameData.price),
-                    genre: gameData.genre
+                    genre: gameData.genre,
+                    detailsJsonUrl: gameData.detailsJsonUrl
                 }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -172,7 +173,8 @@ const Admin = () => {
                     description: newGame.description,
                     image: newGame.imageUrl,
                     price: Number(newGame.price),
-                    genre: newGame.genre
+                    genre: newGame.genre,
+                    detailsJsonUrl: newGame.detailsJsonUrl
                 }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -1101,7 +1103,7 @@ const Admin = () => {
                                                 Edit
                                             </button>
                                             <button
-                                                onClick={() => handleDeleteGame(game.id)}
+                                                onClick={() => handleDeleteGame(game._id)}
                                                 className="action-btn delete-btn"
                                             >
                                                 <Trash2 size={16} />
@@ -1270,6 +1272,7 @@ const Admin = () => {
                                 />
                             </div>
                             
+
                             <div className="form-group form-group-full">
                                 <label className="form-label">Description</label>
                                 <textarea
@@ -1279,6 +1282,19 @@ const Admin = () => {
                                     className="form-textarea"
                                     rows="3"
                                     placeholder="Game description..."
+                                />
+                            </div>
+
+                            <div className="form-group form-group-full">
+                                <label className="form-label">Game Details Link (JSON)</label>
+                                <input
+                                    type="url"
+                                    name="detailsJsonUrl"
+                                    value={currentGame.detailsJsonUrl || ''}
+                                    onChange={handleInputChange}
+                                    className="form-input"
+                                    placeholder="https://raw.githubusercontent.com/youruser/yourrepo/main/GTA_V.json"
+                                    required
                                 />
                             </div>
                             
