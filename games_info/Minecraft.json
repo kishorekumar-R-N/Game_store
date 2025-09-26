@@ -1,12 +1,12 @@
 {
     "title": "Minecraft",
-    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_188_Minecraft.jpg",
-    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_161_minecraft.jpg",
+    "logo": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Minecraft%20-%20Google%20Search/imgi_161_minecraft.jpg",
+    "backgroundImage": "github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_188_Minecraft.jpg?raw=true",
     "about": "An open-world sandbox game where players can explore, interact with, and modify a procedurally generated map made of blocky 3D objects. Gameplay involves building, resource gathering, crafting, and combat.",
     "screenshots": [
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_139_Cul-minecraft-MCE_MAG_Cover_01.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_143_1aac2506-0f7d-4490-8158-a2da35d60a5e.png",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_165_images-courtesy-of-merlin-and-tm-mojang-ab-2.jpg"
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Minecraft%20-%20Google%20Search/imgi_139_Cul-minecraft-MCE_MAG_Cover_01.jpg",
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Minecraft%20-%20Google%20Search/imgi_165_images-courtesy-of-merlin-and-tm-mojang-ab-2.jpg",
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Minecraft%20-%20Google%20Search/imgi_167_dFmsdqzaZw5R89kDW7tU7F.jpg"
     ],
     "keyFeatures": [
       {

@@ -1,13 +1,13 @@
  {
     "title": "Elden Ring",
-    "logo": "https://example.com/assets/eldenring/logo.png",
-    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_203_ranni-maliketh-marika-godrick-from-elden-ring.jpg",
+    "logo": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_8_image.png",
+    "backgroundImage": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_203_ranni-maliketh-marika-godrick-from-elden-ring.jpg",
     "about": "A fantasy action RPG developed by FromSoftware, set within a world created by Hidetaka Miyazaki and George R. R. Martin. Traverse the Lands Between and assume the role of the Tarnished to become the Elden Lord.",
     "screenshots": [
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_164_elden-ring-2048px-0003.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_173_be7cd9fc-f4af-44b0-b580-85f5d42f237d.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_190_eldenring.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_238_fabien-salvalaggio-concepteldenring4.jpg"
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_164_elden-ring-2048px-0003.jpg?raw=true",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_173_be7cd9fc-f4af-44b0-b580-85f5d42f237d.jpg?raw=true",
+      "github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_190_eldenring.jpg?raw=true",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/elden%20ring%20-%20Google%20Search/imgi_238_fabien-salvalaggio-concepteldenring4.jpg?raw=true"
     ],
     "keyFeatures": [
       {

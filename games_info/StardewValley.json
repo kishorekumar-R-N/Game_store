@@ -1,12 +1,12 @@
 {
     "title": "Stardew Valley",
-    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_226_stardew-valley-logo-over-farm-gameplay-background.jpg",
-    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_192_stardew-valley.jpg",
+    "logo": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_226_stardew-valley-logo-over-farm-gameplay-background.jpg",
+    "backgroundImage": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_192_stardew-valley.jpg",
     "about": "You’ve inherited your grandfather’s old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life. Can you learn to live off the land and turn these overgrown fields into a thriving home?",
     "screenshots": [
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_167_a-marriage-happening-in-stardew-valley.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_191_Stardew-Valley-Drops-a-Major-Update-for-All-Platforms.jpg",
-      "https://example.com/assets/stardew/ss3.jpg"
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_167_a-marriage-happening-in-stardew-valley.jpg",
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_191_Stardew-Valley-Drops-a-Major-Update-for-All-Platforms.jpg",
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_197_stardew-sequel.jpg"
     ],
     "keyFeatures": [
       {

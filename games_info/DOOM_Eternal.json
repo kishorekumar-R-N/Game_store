@@ -1,12 +1,12 @@
 {
     "title": "DOOM Eternal",
-    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_9_DOOM_Eternal_Deluxe_Preorder_Vanity_EU-796x935-01-EN.jpg",
-    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_14_doom_eternal_date_n_launch.jpg",
+    "logo": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_21_DOOMEternal_idStudio_BoxArt_900x506-02.png",
+    "backgroundImage": "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_14_doom_eternal_date_n_launch.jpg",
     "about": "The ultimate combination of speed and power is back in this first-person shooter. As the DOOM Slayer, you return to find Earth suffering a demonic invasion. Raze hell and discover the Slayer’s origins.",
     "screenshots": [
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_15_eternal-slide-1.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_6_doom_eternal_marauder_slide_m.jpg",
-      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_8_doom_eternal_slide_2_m.jpg"
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_15_eternal-slide-1.jpg",
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_6_doom_eternal_marauder_slide_m.jpg",
+      "https://raw.githubusercontent.com/kishorekumar-R-N/Game_store/refs/heads/main/src/assets/DOOM%20Eternal%20_%20Bethesda.net/imgi_8_doom_eternal_slide_2_m.jpg"
     ],
     "keyFeatures": [
       {
