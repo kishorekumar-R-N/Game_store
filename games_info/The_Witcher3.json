@@ -1,0 +1,39 @@
+ {
+    "title": "The Witcher 3: Wild Hunt",
+    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/The_Witcher/imgi_13_egs-thewitcher3wildhuntcompleteedition-cdprojektred-ic1-400x400-39ecddf1cc77.png",
+    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/The_Witcher/imgi_14_EGS_TheWitcher3WildHuntCompleteEdition_CDPROJEKTRED_S1_2560x1440-82eb5cf8f725e329d3194920c0c0b64f.jpg",
+    "about": "A story-driven, open-world RPG set in a dark fantasy universe. You are Geralt of Rivia, mercenary monster slayer. You must find the Child of Prophecy, a living weapon that can alter the shape of the world.",
+    "screenshots": [
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/The_Witcher/imgi_3_egs-thewitcher3wildhuntcompleteedition-cdprojektred-g1c-00-1920x1080-ee8358cd8883.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/The_Witcher/imgi_5_egs-thewitcher3wildhuntcompleteedition-cdprojektred-g1a-01-1920x1080-8869fa6cdc96.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/The_Witcher/imgi_7_egs-thewitcher3wildhuntcompleteedition-cdprojektred-g1a-03-1920x1080-24c8f2997f41.jpg"
+    ],
+    "keyFeatures": [
+      {
+        "title": "Monster Hunter",
+        "description": "Use a variety of tools, magic, and skills to track and defeat dangerous creatures."
+      },
+      {
+        "title": "Moral Choices", 
+        "description": "Decisions often come with difficult consequences that ripple throughout the narrative."
+      },
+      {
+        "title": "A World to Explore",
+        "description": "Vast continents like Novigrad and Skellige offer hundreds of hours of exploration and side quests."
+      }
+    ],
+    "details": {
+      "developer": "CD Projekt RED",
+      "publisher": "CD Projekt",
+      "releaseDate": "May 19, 2015",
+      "tags": "RPG, Fantasy, Open World, Adventure",
+      "platforms": "PC, PS4, Xbox One, Nintendo Switch"
+    },
+    "systemSpecs": {
+      "OS": "Windows 7/8/8.1/10 64-bit",
+      "Processor": "Intel Core i7 3770 3.4 GHz / AMD FX-8350 4 GHz",
+      "Memory": "8 GB RAM",
+      "Graphics": "NVIDIA GeForce GTX 770 / AMD Radeon R9 290",
+      "Storage": "35 GB available space"
+    }
+  }

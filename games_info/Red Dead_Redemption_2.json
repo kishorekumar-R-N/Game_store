@@ -1,0 +1,40 @@
+ {
+    "title": "Red Dead Redemption 2",
+    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Red%20Dead%20Redemption%202%20-%20Google%20Search/imgi_184_71833-2160x3840-phone-4k-red-dead-redemption-wallpaper-image.jpg",
+    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Red%20Dead%20Redemption%202%20-%20Google%20Search/imgi_158_Red-Dead-Redemption-2-Key-Art-Cropped.jpg",
+    "about": "An epic tale of life in America at the dawn of the modern age. Play as Arthur Morgan, a member of the Van der Linde gang, as they rob, steal, and fight their way across the vast and rugged heartland of America.",
+    "screenshots": [
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Red%20Dead%20Redemption%202%20-%20Google%20Search/imgi_205_walkthrough-guide-red-dead-redemption-2-shacknews_feature.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Red%20Dead%20Redemption%202%20-%20Google%20Search/imgi_208_red-dead-redemption-pc-scaled.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Red%20Dead%20Redemption%202%20-%20Google%20Search/imgi_215_Red_Dead_Redemption_2_20181022100055.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Red%20Dead%20Redemption%202%20-%20Google%20Search/imgi_221_fRtpHuYh7KobsXsmn92ifj.jpg"
+    ],
+    "keyFeatures": [
+      {
+        "title": "Immense Open World",
+        "description": "Explore America across five sprawling states with incredible detail and dynamic wildlife."
+      },
+      {
+        "title": "Deep Narrative",
+        "description": "A complex story about loyalty, family, and the death of the Wild West era."
+      },
+      {
+        "title": "Honor System",
+        "description": "Your choices and actions affect Arthur's morality and how the world interacts with him."
+      }
+    ],
+    "details": {
+      "developer": "Rockstar Games",
+      "publisher": "Rockstar Games",
+      "releaseDate": "December 5, 2019 (PC)",
+      "tags": "Action, Open World, Western, Adventure",
+      "platforms": "PC, PS4, Xbox One"
+    },
+    "systemSpecs": {
+      "OS": "Windows 10 64 Bit",
+      "Processor": "Intel Core i7-4770K / AMD Ryzen 5 1500X",
+      "Memory": "12 GB RAM",
+      "Graphics": "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 480 4GB",
+      "Storage": "150 GB available space"
+    }
+  }

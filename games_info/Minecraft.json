@@ -1,0 +1,39 @@
+{
+    "title": "Minecraft",
+    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_188_Minecraft.jpg",
+    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_161_minecraft.jpg",
+    "about": "An open-world sandbox game where players can explore, interact with, and modify a procedurally generated map made of blocky 3D objects. Gameplay involves building, resource gathering, crafting, and combat.",
+    "screenshots": [
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_139_Cul-minecraft-MCE_MAG_Cover_01.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_143_1aac2506-0f7d-4490-8158-a2da35d60a5e.png",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Minecraft%20-%20Google%20Search/imgi_165_images-courtesy-of-merlin-and-tm-mojang-ab-2.jpg"
+    ],
+    "keyFeatures": [
+      {
+        "title": "Survival and Creative Modes",
+        "description": "Choose between resource management with monsters or unlimited creative building."
+      },
+      {
+        "title": "Infinite Worlds",
+        "description": "Explore procedurally generated terrain, biomes, and secrets."
+      },
+      {
+        "title": "Multiplayer Fun",
+        "description": "Join realms and servers to play and build with friends globally."
+      }
+    ],
+    "details": {
+      "developer": "Mojang Studios",
+      "publisher": "Microsoft Studios",
+      "releaseDate": "November 18, 2011",
+      "tags": "Sandbox, Survival, Building, Casual",
+      "platforms": "PC, Mac, iOS, Android, Console"
+    },
+    "systemSpecs": {
+      "OS": "Windows 7 and up",
+      "Processor": "Intel Core i3-3210 / AMD A8-7600 APU or equivalent",
+      "Memory": "4 GB RAM",
+      "Graphics": "Intel HD Graphics 4000 / AMD Radeon R5 series (with OpenGL 4.4)",
+      "Storage": "4 GB available space"
+    }
+  }

@@ -1,0 +1,39 @@
+{
+    "title": "Stardew Valley",
+    "logo": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_226_stardew-valley-logo-over-farm-gameplay-background.jpg",
+    "backgroundImage": "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_192_stardew-valley.jpg",
+    "about": "You’ve inherited your grandfather’s old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life. Can you learn to live off the land and turn these overgrown fields into a thriving home?",
+    "screenshots": [
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_167_a-marriage-happening-in-stardew-valley.jpg",
+      "https://github.com/kishorekumar-R-N/Game_store/blob/main/src/assets/Stardew%20Valley%20-%20Google%20Search/imgi_191_Stardew-Valley-Drops-a-Major-Update-for-All-Platforms.jpg",
+      "https://example.com/assets/stardew/ss3.jpg"
+    ],
+    "keyFeatures": [
+      {
+        "title": "Farm to Table",
+        "description": "Grow seasonal crops, raise happy animals, and craft useful items."
+      },
+      {
+        "title": "Community Life",
+        "description": "Befriend the 30+ residents of Pelican Town, start a family, or find love."
+      },
+      {
+        "title": "Exploration and Mining",
+        "description": "Venture deep into mysterious caves to battle monsters and find treasures."
+      }
+    ],
+    "details": {
+      "developer": "ConcernedApe",
+      "publisher": "Chucklefish",
+      "releaseDate": "February 26, 2016",
+      "tags": "Simulation, RPG, Pixel Graphics, Indie",
+      "platforms": "PC, Mac, Linux, PS4, Xbox One, Switch, Mobile"
+    },
+    "systemSpecs": {
+      "OS": "Windows Vista or greater",
+      "Processor": "2 GHz",
+      "Memory": "2 GB RAM",
+      "Graphics": "256 MB video memory, Shader Model 3.0+",
+      "Storage": "500 MB available space"
+    }
+  }
