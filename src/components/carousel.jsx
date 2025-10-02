@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search_div from './search_div';
 import '../homepage.css';
 import EA_SPORTS_FC_26 from '../assets/imgi_3_egs-fc-26-carousel-desktop-1248x702-cfdaed18f79f.jpg'
@@ -66,17 +66,38 @@ export default function App() {
   // State to keep track of the currently active slide index.
   const [activeSlide, setActiveSlide] = useState(0);
 
+  // State for fade animation
+  const [isFading, setIsFading] = useState(false);
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      changeSlide((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [slides.length]);
+
   // Get the current slide data based on the active index.
   const currentSlide = slides[activeSlide];
 
+  // Function to change slide with animation
+  const changeSlide = (newIndex) => {
+    setIsFading(true);
+    setTimeout(() => {
+      setActiveSlide(newIndex);
+      setIsFading(false);
+    }, 500); // Match transition duration
+  };
+
   // Function to handle moving to the next slide.
   const nextSlide = () => {
-    setActiveSlide((prevIndex) => (prevIndex + 1) % slides.length);
+    changeSlide((activeSlide + 1) % slides.length);
   };
 
   // Function to handle moving to the previous slide.
   const prevSlide = () => {
-    setActiveSlide((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
+    changeSlide((activeSlide - 1 + slides.length) % slides.length);
   };
 
   return (
@@ -91,14 +112,14 @@ export default function App() {
             <img
               src={currentSlide.image}
               alt={currentSlide.title}
-              className="slide-image"
+              className={`slide-image ${isFading ? 'fade-out' : 'fade-in'}`}
               onError={(e) => {
                 e.target.src = 'https://placehold.co/1200x675/000000/ffffff?text=Image+Not+Found';
               }}
             />
-            
+
             {/* Content container */}
-            <div className="content-container">
+            <div className={`content-container ${isFading ? 'fade-out' : 'fade-in'}`}>
               <h1 className="main-title">{currentSlide.title}</h1>
               <p className="description">{currentSlide.description}</p>
               <div className="button-group">

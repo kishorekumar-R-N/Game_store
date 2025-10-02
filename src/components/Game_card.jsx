@@ -75,7 +75,7 @@ function Game_card({ _id, title, genre, price, image, min_req }) {
                     </div>
                     <button className="btn-31">
                         <span className="text-container">
-                            <span className="text">{playable === null ? "Checking..." : playable ? "Playable" : "Not playable"}</span>
+                            <span className="text">{playable === null ? "Login" : playable ? "Playable" : "Not playable"}</span>
                         </span>
                     </button>
                 </div>

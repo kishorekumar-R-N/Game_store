@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
 import Footer from '../components/footer';
+import { useCart } from '../utils/cart';
 
 const GameDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [gameDetails, setGameDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = async () => {
+    if (gameDetails) {
+      const success = await addToCart(gameDetails);
+      if (success) {
+        setAddedToCart(true);
+        setTimeout(() => setAddedToCart(false), 2000); // Hide message after 2 seconds
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchGameDetails = async () => {
@@ -27,8 +41,14 @@ const GameDetailsPage = () => {
           throw new Error('Failed to fetch game details');
         }
         const details = await detailsResponse.json();
-        // Optionally, merge some fields from the game object
-        setGameDetails({ ...details, title: game.title });
+        // Merge important fields from the game object for cart functionality
+        setGameDetails({ 
+          ...details, 
+          _id: game._id,
+          title: game.title,
+          price: game.price,
+          image: game.image
+        });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -240,30 +260,90 @@ const GameDetailsPage = () => {
             padding-left: 15px;
           }
 
-          .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+          .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 400px;
+            background: #333;
           }
 
-          .gallery-item {
-            border-radius: 8px;
-            overflow: hidden;
+          .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+          }
+
+          .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+          }
+
+          .carousel-slide img {
             width: 100%;
-            height: 200px;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .carousel-slide-placeholder {
+            width: 100%;
+            height: 100%;
             background: linear-gradient(145deg, #333, #555);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 14px;
+            font-size: 18px;
             text-align: center;
-            transition: transform 0.2s ease;
-            cursor: pointer;
           }
-          
-          .gallery-item:hover {
-            transform: scale(1.03);
+
+          .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+          }
+
+          .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+          }
+
+          .carousel-indicator.active {
+            background: #e02f5a;
+          }
+
+          .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+          }
+
+          .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+          }
+
+          .carousel-prev {
+            left: 20px;
+          }
+
+          .carousel-next {
+            right: 20px;
           }
 
           .features-list {
@@ -342,10 +422,11 @@ const GameDetailsPage = () => {
           }
 
           .back-button {
+            margin-top: 20px;
             background: none;
             border: 2px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 10px 20px;
+            padding:  10px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
@@ -369,13 +450,13 @@ const GameDetailsPage = () => {
         `}
       </style>
 
-      <Header />
+    {/*   <Header /> */}
       
       <button className="back-button" onClick={() => window.history.back()}>
-        ← Back to Store
+        ← {/* Back to Store */}
       </button>
 
-      <HeroSection gameDetails={gameDetails} />
+      <HeroSection gameDetails={gameDetails} handleAddToCart={handleAddToCart} addedToCart={addedToCart} />
       
       <div className="container main-content">
         <div className="main-content-left">
@@ -406,7 +487,7 @@ const Header = () => (
   </header>
 );
 
-const HeroSection = ({ gameDetails }) => {
+const HeroSection = ({ gameDetails, handleAddToCart, addedToCart }) => {
   // Debug log for backgroundImage
   console.log('Background image for hero:', gameDetails.backgroundImage);
   // Fallback image if backgroundImage is missing or fails
@@ -414,6 +495,36 @@ const HeroSection = ({ gameDetails }) => {
   const bgImage = gameDetails.backgroundImage
     ? `url('${gameDetails.backgroundImage}')`
     : `url('${fallbackBg}')`;
+
+  // Add purchase handler
+  const navigate = useNavigate();
+
+  const handlePurchase = async () => {
+    if (!gameDetails) return;
+    // Add to cart first
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login to purchase');
+      return;
+    }
+    try {
+      await api.post('/cart/add', {
+        gameId: gameDetails._id,
+        title: gameDetails.title,
+        price: gameDetails.price,
+        image: gameDetails.image,
+        logo: gameDetails.logo,
+        quantity: 1
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      // Navigate to checkout page
+      navigate('/checkout');
+    } catch (error) {
+      alert('Error processing purchase: ' + (error.response?.data?.message || error.message));
+    }
+  };
+
   return (
     <section
       className="hero-section"
@@ -439,38 +550,94 @@ const HeroSection = ({ gameDetails }) => {
         <div className="hero-text">
           <h1>{gameDetails.title}</h1>
           <p>{gameDetails.about}</p>
-          <button className="cta-button">Purchase Now</button>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <button className="cta-button" onClick={handlePurchase}>Purchase Now</button>
+            <button 
+              className="cta-button" 
+              style={{ backgroundColor: addedToCart ? '#4CAF50' : '#444', color: '#fff' }} 
+              onClick={handleAddToCart}
+            >
+              {addedToCart ? 'Added!' : 'Add to Cart'}
+            </button>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-  const MediaGallery = ({ screenshots }) => (
-    <section className="section">
-      <h2 className="section-title">Screenshots</h2>
-      <div className="gallery-grid">
-        {screenshots && screenshots.length > 0 ? (
-          screenshots.map((screenshot, index) => (
-            <img
-              key={index}
-              src={screenshot}
-              alt={`Screenshot ${index + 1}`}
-              className="gallery-item"
-              style={{ objectFit: 'cover', width: '100%', height: '200px' }}
-            />
-          ))
-        ) : (
-          <>
-            <div className="gallery-item">Screenshot 1</div>
-            <div className="gallery-item">Screenshot 2</div>
-            <div className="gallery-item">Screenshot 3</div>
-            <div className="gallery-item">Screenshot 4</div>
-          </>
-        )}
-      </div>
-    </section>
-  );
+  const MediaGallery = ({ screenshots }) => {
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const slides = screenshots && screenshots.length > 0 ? screenshots : [
+      'Screenshot 1', 'Screenshot 2', 'Screenshot 3', 'Screenshot 4'
+    ];
+
+    // Auto-slide functionality
+    useEffect(() => {
+      if (slides.length <= 1) return;
+      
+      const interval = setInterval(() => {
+        setCurrentSlide(prev => (prev + 1) % slides.length);
+      }, 3000); // Change slide every 3 seconds
+
+      return () => clearInterval(interval);
+    }, [slides.length]);
+
+    const goToSlide = (index) => {
+      setCurrentSlide(index);
+    };
+
+    const nextSlide = () => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    };
+
+    const prevSlide = () => {
+      setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+    };
+
+    return (
+      <section className="section">
+        <h2 className="section-title">Screenshots</h2>
+        <div className="carousel-container">
+          <div 
+            className="carousel-wrapper" 
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {slides.map((slide, index) => (
+              <div key={index} className="carousel-slide">
+                {screenshots && screenshots.length > 0 ? (
+                  <img src={slide} alt={`Screenshot ${index + 1}`} />
+                ) : (
+                  <div className="carousel-slide-placeholder">{slide}</div>
+                )}
+              </div>
+            ))}
+          </div>
+          
+          {slides.length > 1 && (
+            <>
+              <button className="carousel-nav carousel-prev" onClick={prevSlide}>
+                &#8249;
+              </button>
+              <button className="carousel-nav carousel-next" onClick={nextSlide}>
+                &#8250;
+              </button>
+              
+              <div className="carousel-indicators">
+                {slides.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`carousel-indicator ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+    );
+  };
 
 const GameDescription = ({ about }) => (
   <section className="section">

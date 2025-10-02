@@ -8,6 +8,9 @@ import Signup from './pages/signup.jsx';
 import Login from './pages/Login.jsx';
 import Adminpage from './pages/adminpage.jsx';
 import Gamedetails from './pages/game_details.jsx';
+import Cart from './pages/Cart.jsx';
+import Checkout from './pages/Checkout.jsx';
+import Library from './pages/Library.jsx';
 const App = () => {
   return (
     <Router>
@@ -27,6 +30,9 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Adminpage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/library" element={<Library />} />
           <Route path="/game/:id" element={<Gamedetails />} />
         </Routes>
       </div>

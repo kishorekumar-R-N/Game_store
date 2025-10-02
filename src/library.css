@@ -1,0 +1,233 @@
+.library-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 4rem);
+}
+
+.library-container h1 {
+  color: #fff;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.library-item {
+  background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.library-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.game-image {
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  background-color: #1a1a1a;
+}
+
+.game-image img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.game-image:hover img {
+  transform: scale(1.05);
+}
+
+.library-item h3 {
+  color: #fff;
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.download-button {
+  background: linear-gradient(45deg, #e02f5a, #ff3366);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  width: 100%;
+  max-width: 200px;
+}
+
+.download-button:hover {
+  background: linear-gradient(45deg, #ff3366, #e02f5a);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(224, 47, 90, 0.3);
+}
+
+.download-button:active {
+  transform: translateY(0);
+}
+
+.library-item:hover .download-button {
+  box-shadow: 0 6px 15px rgba(224, 47, 90, 0.4);
+}
+
+@media (max-width: 768px) {
+  .library-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .game-image {
+    height: 150px;
+  }
+
+  .library-item h3 {
+    font-size: 1.2rem;
+  }
+
+  .download-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+.library-item:hover .game-image img {
+  transform: scale(1.05);
+}
+
+.game-info {
+  padding: 0.5rem;
+}
+
+.game-info h3 {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.game-description {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  max-height: 4.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.game-meta {
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.added-date {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.download-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.download-button:hover {
+  background: linear-gradient(45deg, #45a049, #3d8b40);
+  transform: translateY(-2px);
+}
+
+.download-button:active {
+  transform: translateY(0);
+}
+
+.empty-library {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.empty-library p {
+  color: #aaa;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.browse-button {
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, #e02f5a, #c62c50);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.browse-button:hover {
+  background: linear-gradient(45deg, #c62c50, #b02746);
+  transform: translateY(-2px);
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  border-radius: 8px;
+  margin-top: 2rem;
+}

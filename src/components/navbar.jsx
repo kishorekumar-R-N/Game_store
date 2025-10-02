@@ -6,6 +6,7 @@ import logo from '../assets/logo.png';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDistributeOpen, setIsDistributeOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('token'));
 
 
 
@@ -21,6 +22,20 @@ const Navbar = () => {
     const userRole = localStorage.getItem('role');
     return token && userRole ? userRole : '';
   });
+
+  // Add Library link based on authentication
+  const renderLibraryLink = () => {
+    if (username) {
+      return (
+        <li className="nav-item">
+          <Link to="/library" className="nav-link">
+            Library
+          </Link>
+        </li>
+      );
+    }
+    return null;
+  };
 
 
   useEffect(() => {
@@ -60,6 +75,7 @@ const Navbar = () => {
             </a>
             <p  className='plogo'>STORE</p>
             <div className="desktop-nav">
+              {renderLibraryLink()}
               <a href="#" className="nav-link">Support</a>
               <div className="relative">
                 <button
@@ -105,6 +121,9 @@ const Navbar = () => {
             </button>
 
             <div className="nav-right-desktop">
+              <Link to="/cart" className="nav-link" style={{ color: 'inherit', textDecoration: 'none', marginRight: '1rem' }}>
+                Add to Cart
+              </Link>
               {role !== 'admin' && (
                 <div className="user-profile">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="icon">

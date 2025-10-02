@@ -319,8 +319,9 @@
           height: 100%;
           object-fit: cover;
           border-radius: 1rem;
+          transition: opacity 0.5s ease-in-out;
         }
-        
+
         /* Container for the text and buttons */
         .content-container {
           position: absolute;
@@ -329,6 +330,16 @@
           padding: 1.5rem;
           z-index: 20;
           color: #ffffff;
+          transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Fade animation classes */
+        .fade-out {
+          opacity: 0;
+        }
+
+        .fade-in {
+          opacity: 1;
         }
         
         /* Main title of the slide */
