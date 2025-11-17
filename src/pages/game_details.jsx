@@ -12,6 +12,10 @@ const GameDetailsPage = () => {
   const [error, setError] = useState(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const { addToCart } = useCart();
+  // Ratings
+  const [ratingSummary, setRatingSummary] = useState({ average: 0, count: 0, userRating: null });
+  const [ratingLoading, setRatingLoading] = useState(false);
+  const [submittingRating, setSubmittingRating] = useState(false);
 
   const handleAddToCart = async () => {
     if (gameDetails) {
@@ -49,6 +53,16 @@ const GameDetailsPage = () => {
           price: game.price,
           image: game.image
         });
+        // Fetch rating summary for this game (non-blocking)
+        try {
+          const token = localStorage.getItem('token');
+          const headers = token ? { Authorization: `Bearer ${token}` } : {};
+          const ratingRes = await api.get(`/games/${game._id}/rating`, { headers });
+          setRatingSummary(ratingRes.data || { average: 0, count: 0, userRating: null });
+        } catch (e) {
+          // ignore rating fetch errors
+          console.warn('Failed to fetch rating', e.message || e);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -465,6 +479,12 @@ const GameDetailsPage = () => {
           <FeaturesSection features={gameDetails.keyFeatures} />
         </div>
         <div className="main-content-right">
+          <RatingSection
+            gameId={gameDetails._id}
+            summary={ratingSummary}
+            onRate={(newSummary) => setRatingSummary(newSummary)}
+            loading={submittingRating}
+          />
           <GameDetails details={gameDetails.details} />
           <SystemRequirements specs={gameDetails.systemSpecs} />
         </div>
@@ -724,6 +744,77 @@ const SystemRequirements = ({ specs }) => (
     </div>
   </aside>
 );
+
+
+const RatingSection = ({ gameId, summary, onRate, loading }) => {
+  const [hover, setHover] = React.useState(0);
+  const [value, setValue] = React.useState(summary?.userRating || null);
+
+  useEffect(() => {
+    setValue(summary?.userRating ?? null);
+  }, [summary]);
+
+  const submitRating = async (ratingValue) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login to submit a rating');
+      return;
+    }
+    try {
+      // optimistic update
+      onRate({ ...summary, userRating: ratingValue });
+      // send to backend
+      const res = await api.post(`/games/${gameId}/rate`, { rating: ratingValue }, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.data && res.data.rating) {
+        onRate({ average: res.data.rating.average, count: res.data.rating.count, userRating: ratingValue, percentage: res.data.rating.percentage });
+      }
+      setValue(ratingValue);
+    } catch (err) {
+      console.error('Failed to submit rating', err);
+      const serverMsg = err.response?.data?.message || err.message || 'Failed to submit rating';
+      alert('Failed to submit rating: ' + serverMsg);
+    }
+  };
+
+  return (
+    <aside className="info-box">
+      <h2>Ratings</h2>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ fontSize: 20, fontWeight: 700 }}>{(summary?.average || 0).toFixed(1)}</div>
+        <div style={{ color: '#b0b0b0' }}>{summary?.count || 0} ratings</div>
+        <div style={{ marginLeft: 12, color: '#b0b0b0' }}>{(summary?.percentage ?? Math.round(((summary?.average || 0) / 5) * 100))}%</div>
+      </div>
+      {/* percentage bar */}
+      <div style={{ marginTop: 8, height: 10, background: '#333', borderRadius: 6, overflow: 'hidden', width: '100%' }}>
+        <div style={{ width: `${summary?.percentage ?? Math.round(((summary?.average || 0) / 5) * 100)}%`, height: '100%', background: '#e02f5a' }} />
+      </div>
+      {summary?.userRatingsCount != null && (
+        <div style={{ color: '#b0b0b0', marginTop: 6 }}>You have rated {summary.userRatingsCount} game{summary.userRatingsCount === 1 ? '' : 's'}</div>
+      )}
+      <div style={{ marginTop: 12 }}>
+        {[1,2,3,4,5].map((i) => (
+          <button
+            key={i}
+            onMouseEnter={() => setHover(i)}
+            onMouseLeave={() => setHover(0)}
+            onClick={() => submitRating(i)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 24,
+              color: (hover >= i || value >= i) ? '#e02f5a' : '#777'
+            }}
+            aria-label={`Rate ${i} stars`}
+          >
+            ★
+          </button>
+        ))}
+      </div>
+      {loading && <div style={{ marginTop: 8 }}>Saving...</div>}
+    </aside>
+  );
+};
 
 
 

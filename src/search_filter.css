@@ -9,16 +9,17 @@
     align-items: flex-start;      /* top align rows */
     justify-content: flex-start;  /* left align */
     gap: 25px;                    /* consistent spacing */
+    padding: 0 25px;             /* add padding to container */
 }
 .cards{
-    margin-top:50px;
+    margin-top: 50px;
     position: relative;
     height: 400px;
-    width: 245px;
+    width: 280px;               /* fixed width for larger cards */
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 30px;
+    margin-left: 30px;         /* restore original margin */
 }
 .cards img {
     transition: transform 0.3s ease-in-out;
@@ -81,6 +82,40 @@ option{
     outline: none;
     background-color: #100f14; 
 }
+
+/* Responsive breakpoints */
+@media (max-width: 1440px) {
+    .cards {
+        width: 260px; /* slightly smaller on medium-large screens */
+    }
+}
+
+@media (max-width: 1200px) {
+    .cards {
+        width: 245px; /* original size for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .cards {
+        width: 280px; /* full size for mobile, 2 per row */
+        margin-left: 15px;
+    }
+    .Game_List {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .cards {
+        width: 300px; /* even larger on small screens, 1 per row */
+        margin-left: 0;
+    }
+    .Game_List {
+        padding: 0 10px;
+    }
+}
+
 /*
 playable btn css
 */

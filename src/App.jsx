@@ -11,6 +11,7 @@ import Gamedetails from './pages/game_details.jsx';
 import Cart from './pages/Cart.jsx';
 import Checkout from './pages/Checkout.jsx';
 import Library from './pages/Library.jsx';
+import News from './pages/news.jsx';
 const App = () => {
   return (
     <Router>
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/news" element={<News />} />
           <Route path="/game/:id" element={<Gamedetails />} />
         </Routes>
       </div>

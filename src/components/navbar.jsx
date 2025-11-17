@@ -5,7 +5,6 @@ import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDistributeOpen, setIsDistributeOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('token'));
 
 
@@ -76,33 +75,6 @@ const Navbar = () => {
             <p  className='plogo'>STORE</p>
             <div className="desktop-nav">
               {renderLibraryLink()}
-              <a href="#" className="nav-link">Support</a>
-              <div className="relative">
-                <button
-                  onClick={() => setIsDistributeOpen(!isDistributeOpen)}
-                  className="dropdown-btn"
-                >
-                  Distribute
-                  <svg
-                    className={`h-5 w-5 ml-1 transform transition-transform duration-200 ${isDistributeOpen ? 'rotate-180' : ''}`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-                {isDistributeOpen && (
-                  <div className="dropdown-menu">
-                    <a href="#">Publishing</a>
-                    <a href="#">Licensing</a>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
 
@@ -165,14 +137,10 @@ const Navbar = () => {
 
         {isMenuOpen && (
           <div className="mobile-menu">
-            <a href="#" className="mobile-link">Support</a>
-            <a href="#" className="mobile-link">Distribute</a>
-            <hr className="mobile-separator" />
             <div className="mobile-profile">
               <span style={{ color: '#9ca3af' }}>User:</span>
               <span>{username ? username : ''}</span>
             </div>
-            <a href="#" className="download-btn mobile-link" style={{ marginTop: '0.5rem' }}>Download</a>
           </div>
         )}
       </nav>
