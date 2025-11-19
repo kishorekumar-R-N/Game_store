@@ -31,7 +31,8 @@ const App = () => {
     e.preventDefault();
     setMessage('');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -124,7 +125,7 @@ const App = () => {
             <p>Enter your account email to receive a reset token (dev mode shows token).</p>
             <input type="email" placeholder="Email" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} className="glass-input" />
             <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-              <button onClick={async (e) => { e.preventDefault(); setForgotMessage(''); try { const res = await fetch('http://localhost:5000/api/auth/forgot', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email: forgotEmail }) }); const data = await res.json(); if (res.ok) { setForgotMessage('Reset token generated (dev):'); setDevToken(data.token || ''); } else { setForgotMessage(data.message || 'Error'); } } catch(err){ setForgotMessage('Network error'); } }} className="submit-button">Send reset token</button>
+              <button onClick={async (e) => { e.preventDefault(); setForgotMessage(''); try { const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'; const res = await fetch(`${API_BASE}/auth/forgot`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email: forgotEmail }) }); const data = await res.json(); if (res.ok) { setForgotMessage('Reset token generated (dev):'); setDevToken(data.token || ''); } else { setForgotMessage(data.message || 'Error'); } } catch(err){ setForgotMessage('Network error'); } }} className="submit-button">Send reset token</button>
               <button onClick={(e) => { e.preventDefault(); setShowForgot(false); setForgotEmail(''); setForgotMessage(''); }} className="submit-button" style={{ background: '#666' }}>Close</button>
               <button onClick={(e) => { e.preventDefault(); setShowReset(true); setResetToken(devToken); }} className="submit-button" style={{ background: '#444' }}>Reset password</button>
             </div>
@@ -141,7 +142,7 @@ const App = () => {
             <input type="text" placeholder="Token" value={resetToken} onChange={(e) => setResetToken(e.target.value)} className="glass-input" />
             <input type="password" placeholder="New password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="glass-input" style={{ marginTop: 8 }} />
             <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-              <button onClick={async (e) => { e.preventDefault(); setResetMessage(''); try { const res = await fetch('http://localhost:5000/api/auth/reset', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ token: resetToken, newPassword }) }); const data = await res.json(); if (res.ok) { setResetMessage('Password reset successful. You can login now.'); setShowReset(false); setShowForgot(false); } else { setResetMessage(data.message || 'Error resetting password'); } } catch(err){ setResetMessage('Network error'); } }} className="submit-button">Submit new password</button>
+              <button onClick={async (e) => { e.preventDefault(); setResetMessage(''); try { const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'; const res = await fetch(`${API_BASE}/auth/reset`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ token: resetToken, newPassword }) }); const data = await res.json(); if (res.ok) { setResetMessage('Password reset successful. You can login now.'); setShowReset(false); setShowForgot(false); } else { setResetMessage(data.message || 'Error resetting password'); } } catch(err){ setResetMessage('Network error'); } }} className="submit-button">Submit new password</button>
               <button onClick={(e) => { e.preventDefault(); setShowReset(false); setResetToken(''); setNewPassword(''); setResetMessage(''); }} className="submit-button" style={{ background: '#666' }}>Close</button>
             </div>
             {resetMessage && <div style={{ marginTop: 8, color: resetMessage.includes('successful') ? 'lightgreen' : 'salmon' }}>{resetMessage}</div>}

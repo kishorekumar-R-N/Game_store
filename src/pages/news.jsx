@@ -10,7 +10,8 @@ const News = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/news');
+        const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+        const response = await axios.get(`${API_BASE}/news`);
         console.log('Fetched news:', response.data); // Debug log
         setNews(response.data);
         setLoading(false);
