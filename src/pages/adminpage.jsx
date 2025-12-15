@@ -3,7 +3,6 @@ import { Search, Filter, Edit2, Trash2, Plus, BarChart3, Users, DollarSign, Cale
 
 // Sample initial data
 import api from '../api';
-
 // Main App component
 const Admin = () => {
     // State variables for game data, form inputs, and UI controls
@@ -27,6 +26,7 @@ const Admin = () => {
     const [loading, setLoading] = useState(false);
     
     // UI state for enhanced features
+
     const [editingGame, setEditingGame] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterGenre, setFilterGenre] = useState('');
